@@ -24,7 +24,10 @@ class Camera {
   }
   
   void bouge(PVector move) {
-    PVector next = eye.copy().normalize().add(move);
+    PVector next = eye.copy();
+    next.add(PVector.mult(dir, move.z));
+    next.add(PVector.mult(dir.cross(up), move.x));
+    next.add(PVector.mult(up, move.y));
     eye.set(next);
   }
   
