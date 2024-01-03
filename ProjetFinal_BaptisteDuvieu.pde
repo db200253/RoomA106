@@ -5,11 +5,23 @@ PShape salle;
 //PShape clavier;
 //PShape table;
 
+PImage murs;
+
 PVector [] lightPos = {
-  new PVector(280, 278, 450)
+  new PVector(150, -278, 250),
+  new PVector(150, -278, 500),
+  new PVector(150, -278, 750),
+  new PVector(450, -278, 250),
+  new PVector(450, -278, 500),
+  new PVector(450, -278, 750),
 };
 PVector [] lightColor = {
-  new PVector(255, 255, 255)
+  new PVector(200, 200, 200),
+  new PVector(200, 200, 200),
+  new PVector(200, 200, 200),
+  new PVector(200, 200, 200),
+  new PVector(200, 200, 200),
+  new PVector(200, 200, 200)
 };
 
 void setup() {
@@ -17,7 +29,7 @@ void setup() {
   cam = new Camera(new PVector(0,0,0),0,0);
   //clavier = dessineClavier();
   textureShader = loadShader("FragmentShader.glsl", "VertexShader.glsl");
-  
+  murs = loadImage("mur.jpg");
   salle = dessineSalle();
   
   //table = dessineTable(0,0,0);
@@ -26,10 +38,22 @@ void setup() {
 void draw() {
   background(0);
   shader(textureShader);
-  ambientLight(255,255,255);
-  lightSpecular(lightColor[0].x, lightColor[0].y, lightColor[0].z);
-  pointLight(lightColor[0].x, lightColor[0].y, lightColor[0].z,
-              lightPos[0].x, lightPos[0].y, lightPos[0].z);
+  ambientLight(10,10,10);
+  for(int i=0; i<lightPos.length; i++) {
+    lightSpecular(lightColor[i].x, lightColor[i].y, lightColor[i].z);
+    pointLight(lightColor[i].x, lightColor[i].y, lightColor[i].z, 
+               lightPos[i].x, lightPos[i].y, lightPos[i].z);
+  }   
+  
+  for(int i=0; i<lightPos.length; i++) {
+    pushMatrix();
+        noStroke();
+        emissive(lightColor[i].x, lightColor[i].y, lightColor[i].z);
+        translate(lightPos[i].x, lightPos[i].y, lightPos[i].z);
+        box(10, 10, 10);
+    popMatrix();
+  }
+
        
   cam.dessine();
   updateCamera();
@@ -37,7 +61,7 @@ void draw() {
   //shape(clavier);
   ///shape(table);
 }
-
+/*
 PShape dessineCube() {
   PShape box = createShape();
   int c = 1;
@@ -89,56 +113,70 @@ PShape dessineCube() {
   box.endShape(CLOSE);
     
   return box;
-}
+}*/
 
 PShape dessineSalle() {
-  int w = 594, h = 278, d = 978;
+  int w = 600, h = 275, d = 1000;
   
   PShape box = createShape();
   
+  textureMode(NORMAL);
+  
   box.beginShape(QUADS);
   
-    box.stroke(0);
-    box.fill(255);
-    box.vertex(w, h, d, 0, 0);
-    box.vertex(-w, h, d, 0, 1);
-    box.vertex(-w, -h, d, 1, 1);
-    box.vertex(w, -h, d, 1, 0);
-    
-    box.stroke(0);
-    box.fill(255);
-    box.vertex(w, h, -d, 0, 0);
-    box.vertex(-w, h, -d, 0, 1);
-    box.vertex(-w, -h, -d, 1, 1);
-    box.vertex(w, -h, -d, 1, 0);
-    
-    box.stroke(0);
-    box.fill(255);
-    box.vertex(w, h, d, 0, 0);
-    box.vertex(w, h, -d, 0, 1);
-    box.vertex(-w, h, -d, 1, 1);
-    box.vertex(-w, h, d, 1, 0);
-    
-    box.stroke(0);
-    box.fill(255);
+    box.texture(murs);
+    box.shininess(10);
+    box.emissive(0, 0, 0);
+    box.normal(0, 0, 1);
     box.vertex(w, -h, d, 0, 0);
-    box.vertex(w, -h, -d, 0, 1);
-    box.vertex(-w, -h, -d, 1, 1);
-    box.vertex(-w, -h, d, 1, 0);
+    box.vertex(0, -h, d, 0, 1);
+    box.vertex(0, 0, d, 1, 1);
+    box.vertex(w, 0, d, 1, 0);
     
-    box.stroke(0);
-    box.fill(255);
-    box.vertex(w, h, d, 0, 0);
-    box.vertex(w, h, -d, 0, 1);
-    box.vertex(w, -h, -d, 1, 1);
-    box.vertex(w, -h, d, 1, 0);
+    box.texture(murs);
+    box.shininess(10);
+    box.emissive(0, 0, 0);
+    box.normal(0, 0, 1);
+    box.vertex(w, -h, 0, 0, 0);
+    box.vertex(0, -h, 0, 0, 1);
+    box.vertex(0, 0, 0, 1, 1);
+    box.vertex(w, 0, 0, 1, 0);
     
-    box.stroke(0);
-    box.fill(255);
-    box.vertex(-w, h, d, 0, 0);
-    box.vertex(-w, h, -d, 0, 1);
-    box.vertex(-w, -h, -d, 1, 1);
-    box.vertex(-w, -h, d, 1, 0);
+    box.texture(murs);
+    box.shininess(10);
+    box.emissive(0, 0, 0);
+    box.normal(0, 0, 1);
+    box.vertex(w, -h, d, 0, 0);
+    box.vertex(w, -h, 0, 0, 1);
+    box.vertex(0, -h, 0, 1, 1);
+    box.vertex(0, -h, d, 1, 0);
+    
+    box.texture(murs);
+    box.shininess(10);
+    box.emissive(0, 0, 0);
+    box.normal(0, 0, 1);
+    box.vertex(w, 0, d, 0, 0);
+    box.vertex(w, 0, 0, 0, 1);
+    box.vertex(0, 0, 0, 1, 1);
+    box.vertex(0, 0, d, 1, 0);
+    
+    box.texture(murs);
+    box.shininess(10);
+    box.emissive(0, 0, 0);
+    box.normal(0, 0, 1);
+    box.vertex(w, -h, d, 0, 0);
+    box.vertex(w, -h, 0, 0, 1);
+    box.vertex(w, 0, 0, 1, 1);
+    box.vertex(w, 0, d, 1, 0);
+    
+    box.texture(murs);
+    box.shininess(10);
+    box.emissive(0, 0, 0);
+    box.normal(0, 0, 1);
+    box.vertex(0, -h, d, 0, 0);
+    box.vertex(0, -h, 0, 0, 1);
+    box.vertex(0, -h, 0, 1, 1);
+    box.vertex(0, -h, d, 1, 0);
   
   box.endShape(CLOSE);
     

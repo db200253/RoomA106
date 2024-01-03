@@ -1,4 +1,4 @@
-#define PROCESSING_LIGHT_SHADER
+#define PROCESSING_TEXLIGHT_SHADER
 
 uniform mat4 modelview;
 uniform mat4 transform;
@@ -9,7 +9,7 @@ attribute vec4 color;
 attribute vec3 normal;
 attribute vec4 emissive;
 attribute float shininess; 
-//attribute vec2 texCoord;
+attribute vec2 texCoord;
 
 varying vec4 vertColor;
 varying vec4 vertEmissive;
@@ -25,5 +25,5 @@ void main() {
   vertEmissive  = emissive;
   vertColor     = color;
   vertShininess = shininess;
-  //uv            = texCoord;
+  uv            = texCoord;
 }
