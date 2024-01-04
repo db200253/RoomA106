@@ -1,11 +1,12 @@
 Camera cam;
 
 PShader textureShader;
-PShape salle;
+Boite salle;
 //PShape clavier;
 //PShape table;
 
 PImage murs;
+PImage sol;
 
 PVector [] lightPos = {
   new PVector(150, -278, 250),
@@ -30,7 +31,9 @@ void setup() {
   //clavier = dessineClavier();
   textureShader = loadShader("FragmentShader.glsl", "VertexShader.glsl");
   murs = loadImage("mur.jpg");
-  salle = dessineSalle();
+  sol = loadImage("sol.jpg");
+  salle = new Boite(600, 275, 1000);
+  
   
   //table = dessineTable(0,0,0);
 }
@@ -57,140 +60,19 @@ void draw() {
        
   cam.dessine();
   updateCamera();
-  shape(salle);
+  shape(salle.dessine(murs, murs, sol, sol, murs, murs));
   //shape(clavier);
   ///shape(table);
 }
+
 /*
-PShape dessineCube() {
-  PShape box = createShape();
-  int c = 1;
-    
-  box.beginShape(QUADS);
-  
-    box.fill(255);
-    box.stroke(0);
-    box.vertex(c, c, c, 0, 0);
-    box.vertex(-c, c, c, 0, 1);
-    box.vertex(-c, -c, c, 1, 1);
-    box.vertex(c, -c, c, 1, 0);
-    
-    box.fill(255);
-    box.stroke(0);
-    box.vertex(c, c, -c, 0, 0);
-    box.vertex(-c, c, -c, 0, 1);
-    box.vertex(-c, -c, -c, 1, 1);
-    box.vertex(c, -c, -c, 1, 0);
-    
-    box.fill(255);
-    box.stroke(0);
-    box.vertex(c, c, c, 0, 0);
-    box.vertex(c, c, -c, 0, 1);
-    box.vertex(-c, c, -c, 1, 1);
-    box.vertex(-c, c, c, 1, 0);
-    
-    box.fill(255);
-    box.stroke(0);
-    box.vertex(c, -c, c, 0, 0);
-    box.vertex(c, -c, -c, 0, 1);
-    box.vertex(-c, -c, -c, 1, 1);
-    box.vertex(-c, -c, c, 1, 0);
-    
-    box.fill(255);
-    box.stroke(0);
-    box.vertex(c, c, c, 0, 0);
-    box.vertex(c, c, -c, 0, 1);
-    box.vertex(c, -c, -c, 1, 1);
-    box.vertex(c, -c, c, 1, 0);
-    
-    box.fill(255);
-    box.stroke(0);
-    box.vertex(-c, c, c, 0, 0);
-    box.vertex(-c, c, -c, 0, 1);
-    box.vertex(-c, -c, -c, 1, 1);
-    box.vertex(-c, -c, c, 1, 0);
-  
-  box.endShape(CLOSE);
-    
-  return box;
-}*/
-
-PShape dessineSalle() {
-  int w = 600, h = 275, d = 1000;
-  
-  PShape box = createShape();
-  
-  textureMode(NORMAL);
-  
-  box.beginShape(QUADS);
-  
-    box.texture(murs);
-    box.shininess(10);
-    box.emissive(0, 0, 0);
-    box.normal(0, 0, 1);
-    box.vertex(w, -h, d, 0, 0);
-    box.vertex(0, -h, d, 0, 1);
-    box.vertex(0, 0, d, 1, 1);
-    box.vertex(w, 0, d, 1, 0);
-    
-    box.texture(murs);
-    box.shininess(10);
-    box.emissive(0, 0, 0);
-    box.normal(0, 0, 1);
-    box.vertex(w, -h, 0, 0, 0);
-    box.vertex(0, -h, 0, 0, 1);
-    box.vertex(0, 0, 0, 1, 1);
-    box.vertex(w, 0, 0, 1, 0);
-    
-    box.texture(murs);
-    box.shininess(10);
-    box.emissive(0, 0, 0);
-    box.normal(0, 0, 1);
-    box.vertex(w, -h, d, 0, 0);
-    box.vertex(w, -h, 0, 0, 1);
-    box.vertex(0, -h, 0, 1, 1);
-    box.vertex(0, -h, d, 1, 0);
-    
-    box.texture(murs);
-    box.shininess(10);
-    box.emissive(0, 0, 0);
-    box.normal(0, 0, 1);
-    box.vertex(w, 0, d, 0, 0);
-    box.vertex(w, 0, 0, 0, 1);
-    box.vertex(0, 0, 0, 1, 1);
-    box.vertex(0, 0, d, 1, 0);
-    
-    box.texture(murs);
-    box.shininess(10);
-    box.emissive(0, 0, 0);
-    box.normal(0, 0, 1);
-    box.vertex(w, -h, d, 0, 0);
-    box.vertex(w, -h, 0, 0, 1);
-    box.vertex(w, 0, 0, 1, 1);
-    box.vertex(w, 0, d, 1, 0);
-    
-    box.texture(murs);
-    box.shininess(10);
-    box.emissive(0, 0, 0);
-    box.normal(0, 0, 1);
-    box.vertex(0, -h, d, 0, 0);
-    box.vertex(0, -h, 0, 0, 1);
-    box.vertex(0, -h, 0, 1, 1);
-    box.vertex(0, -h, d, 1, 0);
-  
-  box.endShape(CLOSE);
-    
-  return box;
-}
-
-
 PShape dessineClavier() {
    PShape clavier = dessineCube();
    
    clavier.scale(43,1,12);
    
    return clavier;
-}
+}*/
 /*
 PShape dessineTable(int x, int y, int z) {
   PShape table = createShape(GROUP);
