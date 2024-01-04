@@ -1,7 +1,10 @@
 Camera cam;
 
 PShader textureShader;
-Boite salle;
+
+Boite s;
+PShape salle;
+
 //PShape clavier;
 //PShape table;
 
@@ -32,8 +35,8 @@ void setup() {
   textureShader = loadShader("FragmentShader.glsl", "VertexShader.glsl");
   murs = loadImage("mur.jpg");
   sol = loadImage("sol.jpg");
-  salle = new Boite(600, 275, 1000);
-  
+  s = new Boite(600, 275, 1000);
+  salle = s.dessine(murs, murs, sol, sol, murs, murs);
   
   //table = dessineTable(0,0,0);
 }
@@ -60,7 +63,7 @@ void draw() {
        
   cam.dessine();
   updateCamera();
-  shape(salle.dessine(murs, murs, sol, sol, murs, murs));
+  shape(salle);
   //shape(clavier);
   ///shape(table);
 }
