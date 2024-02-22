@@ -4,12 +4,15 @@ PShader textureShader;
 
 Boite s;
 PShape salle;
+Boite t;
+PShape tableau;
 
 //PShape clavier;
 //PShape table;
 
 PImage murs;
 PImage sol;
+PImage tab;
 
 PVector [] lightPos = {
   new PVector(150, -278, 250),
@@ -20,12 +23,12 @@ PVector [] lightPos = {
   new PVector(450, -278, 750),
 };
 PVector [] lightColor = {
-  new PVector(200, 200, 200),
-  new PVector(200, 200, 200),
-  new PVector(200, 200, 200),
-  new PVector(200, 200, 200),
-  new PVector(200, 200, 200),
-  new PVector(200, 200, 200)
+  new PVector(50, 50, 50),
+  new PVector(50, 50, 50),
+  new PVector(50, 50, 50),
+  new PVector(50, 50, 50),
+  new PVector(50, 50, 50),
+  new PVector(50, 50, 50)
 };
 
 void setup() {
@@ -34,9 +37,12 @@ void setup() {
   //clavier = dessineClavier();
   textureShader = loadShader("FragmentShader.glsl", "VertexShader.glsl");
   murs = loadImage("mur.jpg");
-  sol = loadImage("sol.jpg");
+  sol = loadImage("sol.jpeg");
+  tab = loadImage("tab.jpg");
   s = new Boite(600, 275, 1000);
-  salle = s.dessine(murs, murs, sol, sol, murs, murs);
+  salle = s.dessine(murs, murs, murs, sol, murs, murs);
+  t = new Boite(390,140,1);
+  tableau = t.dessine(tab, tab, tab, tab, tab, tab);
   
   //table = dessineTable(0,0,0);
 }
@@ -44,12 +50,19 @@ void setup() {
 void draw() {
   background(0);
   shader(textureShader);
-  ambientLight(10,10,10);
-  for(int i=0; i<lightPos.length; i++) {
-    lightSpecular(lightColor[i].x, lightColor[i].y, lightColor[i].z);
-    pointLight(lightColor[i].x, lightColor[i].y, lightColor[i].z, 
-               lightPos[i].x, lightPos[i].y, lightPos[i].z);
-  }   
+  ambientLight(0,0,0);
+  for (int i = 0; i < lightPos.length; i++) {
+    pushMatrix();
+    noStroke();
+    emissive(lightColor[i].x, lightColor[i].y, lightColor[i].z);
+    translate(lightPos[i].x, lightPos[i].y, lightPos[i].z);
+    spotLight(lightColor[i].x, lightColor[i].y, lightColor[i].z,
+            lightPos[i].x, lightPos[i].y, lightPos[i].z, // Position
+            0, 0, -1, // Direction (vers le bas, vous pouvez ajuster cela selon vos besoins)
+            PI / 3, // Angle du cône lumineux
+            20); // Étendue du cône lumineux
+    popMatrix();
+  }
   
   for(int i=0; i<lightPos.length; i++) {
     pushMatrix();
@@ -59,11 +72,12 @@ void draw() {
         box(10, 10, 10);
     popMatrix();
   }
-
        
   cam.dessine();
   updateCamera();
   shape(salle);
+  translate(120, -70, 0);
+  shape(tableau);
   //shape(clavier);
   ///shape(table);
 }
@@ -135,6 +149,8 @@ boolean keyZPressed = false;
 boolean keySPressed = false;
 boolean keyQPressed = false;
 boolean keyDPressed = false;
+boolean keyUPressed = false;
+boolean keyJPressed = false;
 
 void keyPressed() {
   if (key == 'z' || keyCode == UP) {
@@ -145,6 +161,10 @@ void keyPressed() {
     keyQPressed = true;
   } else if (key == 'd' || keyCode == RIGHT) {
     keyDPressed = true;
+  } else if (key == 'u') {
+    keyUPressed = true;
+  } else if (key == 'j') {
+    keyJPressed = true;
   }
 }
 
@@ -157,6 +177,10 @@ void keyReleased() {
     keyQPressed = false;
   } else if (key == 'd' || keyCode == RIGHT) {
     keyDPressed = false;
+  } else if (key == 'u') {
+    keyUPressed = false;
+  } else if (key == 'j') {
+    keyJPressed = false;
   }
 }
 
@@ -174,6 +198,12 @@ void updateCamera() {
   }
   if (keyDPressed) {
     cam.bouge(new PVector(speed, 0, 0));
+  } 
+  if (keyUPressed) {
+    cam.bouge(new PVector(0, -speed, 0));
+  }
+  if (keyJPressed) {
+    cam.bouge(new PVector(0, speed, 0));
   }
 }
 
