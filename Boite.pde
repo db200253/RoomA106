@@ -48,9 +48,9 @@ class Boite {
       }
 
       b.vertex(w, -h, d, 0, 0);
-      b.vertex(0, -h, d, 0, 1);
+      b.vertex(0, -h, d, 1, 0);
       b.vertex(0, 0, d, 1, 1);
-      b.vertex(w, 0, d, 1, 0);
+      b.vertex(w, 0, d, 0, 1);
       
     b.endShape();
     
@@ -76,9 +76,9 @@ class Boite {
       }
       
       b.vertex(w, -h, 0, 0, 0);
-      b.vertex(0, -h, 0, 0, 1);
+      b.vertex(0, -h, 0, 1, 0);
       b.vertex(0, 0, 0, 1, 1);
-      b.vertex(w, 0, 0, 1, 0);
+      b.vertex(w, 0, 0, 0, 1);
       
     b.endShape();
     
@@ -104,9 +104,9 @@ class Boite {
       }
       
       b.vertex(w, -h, d, 0, 0);
-      b.vertex(w, -h, 0, 0, 1);
+      b.vertex(w, -h, 0, 1, 0);
       b.vertex(0, -h, 0, 1, 1);
-      b.vertex(0, -h, d, 1, 0);
+      b.vertex(0, -h, d, 0, 1);
       
     b.endShape();
     
@@ -132,9 +132,9 @@ class Boite {
       }
       
       b.vertex(w, 0, d, 0, 0);
-      b.vertex(w, 0, 0, 0, 1);
+      b.vertex(w, 0, 0, 1, 0);
       b.vertex(0, 0, 0, 1, 1);
-      b.vertex(0, 0, d, 1, 0);
+      b.vertex(0, 0, d, 0, 1);
       
     b.endShape();
     
@@ -160,9 +160,9 @@ class Boite {
       }
       
       b.vertex(w, -h, d, 0, 0);
-      b.vertex(w, -h, 0, 0, 1);
+      b.vertex(w, -h, 0, 1, 0);
       b.vertex(w, 0, 0, 1, 1);
-      b.vertex(w, 0, d, 1, 0);
+      b.vertex(w, 0, d, 0, 1);
       
     b.endShape();
     

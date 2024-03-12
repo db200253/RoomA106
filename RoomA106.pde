@@ -2,6 +2,11 @@ Camera cam;
 
 PShader textureShader;
 
+Boite b;
+PShape bg;
+Boite f;
+PShape fen;
+
 Boite s;
 PShape salle;
 Boite t;
@@ -12,6 +17,8 @@ PShape porte;
 //PShape clavier;
 //PShape table;
 
+PImage background;
+PImage fenetre;
 PImage bois;
 PImage murs;
 PImage sol;
@@ -40,11 +47,17 @@ void setup() {
   cam = new Camera(new PVector(0,0,0),0,0);
   //clavier = dessineClavier();
   textureShader = loadShader("FragmentShader.glsl", "VertexShader.glsl");
+  background = loadImage("background.jpg");
+  fenetre = loadImage("fenetre.png");
   bois = loadImage("bois.jpg");
   murs = loadImage("mur.jpg");
   sol = loadImage("sol.jpeg");
   tab = loadImage("tab.jpg");
   door = loadImage("porte.png");
+  b = new Boite(1, 175, 800);
+  bg = b.dessine(background, background, background, background, background, background);
+  f = new Boite(2, 175, 200);
+  fen = f.dessine(fenetre, fenetre, fenetre, fenetre, fenetre, fenetre);
   s = new Boite(600, 275, 1000);
   salle = s.dessine(murs, murs, murs, sol, murs, murs);
   t = new Boite(390,140,1);
@@ -68,6 +81,16 @@ void draw() {
        
   cam.dessine();
   updateCamera();
+  translate(0, -70, 100);
+  shape(bg);
+  shape(fen);
+  translate(0, 0, 200);
+  shape(fen);
+  translate(0, 0, 200);
+  shape(fen);
+  translate(0, 0, 200);
+  shape(fen);
+  translate(0, 70, -700);
   shape(salle);
   translate(120, -70, 0);
   shape(tableau);
