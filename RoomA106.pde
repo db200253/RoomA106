@@ -6,13 +6,17 @@ Boite s;
 PShape salle;
 Boite t;
 PShape tableau;
+Boite p;
+PShape porte;
 
 //PShape clavier;
 //PShape table;
 
+PImage bois;
 PImage murs;
 PImage sol;
 PImage tab;
+PImage door;
 
 PVector [] lightPos = {
   new PVector(150, -278, 250),
@@ -36,13 +40,17 @@ void setup() {
   cam = new Camera(new PVector(0,0,0),0,0);
   //clavier = dessineClavier();
   textureShader = loadShader("FragmentShader.glsl", "VertexShader.glsl");
+  bois = loadImage("bois.jpg");
   murs = loadImage("mur.jpg");
   sol = loadImage("sol.jpeg");
   tab = loadImage("tab.jpg");
+  door = loadImage("porte.png");
   s = new Boite(600, 275, 1000);
   salle = s.dessine(murs, murs, murs, sol, murs, murs);
   t = new Boite(390,140,1);
-  tableau = t.dessine(tab, tab, tab, tab, tab, tab);
+  tableau = t.dessine(tab, bois, bois, bois, bois, bois);
+  p = new Boite(1,220,100);
+  porte = p.dessine(door, door, door, door, door, door);
   
   //table = dessineTable(0,0,0);
 }
@@ -50,27 +58,12 @@ void setup() {
 void draw() {
   background(0);
   shader(textureShader);
-  ambientLight(0,0,0);
+  ambientLight(10,10,10);
   for (int i = 0; i < lightPos.length; i++) {
-    pushMatrix();
-    noStroke();
     emissive(lightColor[i].x, lightColor[i].y, lightColor[i].z);
     translate(lightPos[i].x, lightPos[i].y, lightPos[i].z);
-    spotLight(lightColor[i].x, lightColor[i].y, lightColor[i].z,
-            lightPos[i].x, lightPos[i].y, lightPos[i].z, // Position
-            0, 0, -1, // Direction (vers le bas, vous pouvez ajuster cela selon vos besoins)
-            PI / 3, // Angle du cône lumineux
-            20); // Étendue du cône lumineux
-    popMatrix();
-  }
-  
-  for(int i=0; i<lightPos.length; i++) {
-    pushMatrix();
-        noStroke();
-        emissive(lightColor[i].x, lightColor[i].y, lightColor[i].z);
-        translate(lightPos[i].x, lightPos[i].y, lightPos[i].z);
-        box(10, 10, 10);
-    popMatrix();
+    pointLight(lightColor[i].x, lightColor[i].y, lightColor[i].z,
+            lightPos[i].x, lightPos[i].y, lightPos[i].z);
   }
        
   cam.dessine();
@@ -78,6 +71,9 @@ void draw() {
   shape(salle);
   translate(120, -70, 0);
   shape(tableau);
+  translate(-120, 70, 0);
+  translate(599, 0, 25);
+  shape(porte);
   //shape(clavier);
   ///shape(table);
 }
@@ -208,7 +204,7 @@ void updateCamera() {
 }
 
 void mouseDragged() {
-  float dirSpeed = 0.001;
+  float dirSpeed = 0.002;
   
   float deltaX = mouseX - pmouseX;
   float deltaY = mouseY - pmouseY;
