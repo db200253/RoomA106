@@ -44,7 +44,7 @@ PVector [] lightColor = {
 
 void setup() {
   size(1000, 1000, P3D);
-  cam = new Camera(new PVector(0,0,0),0,0);
+  cam = new Camera(new PVector(300,-135,500),0,0);
   //clavier = dessineClavier();
   textureShader = loadShader("FragmentShader.glsl", "VertexShader.glsl");
   background = loadImage("background.jpg");
