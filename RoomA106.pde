@@ -11,8 +11,8 @@ Boite s;
 PShape salle;
 Boite t;
 PShape tableau;
-Boite p;
-PShape porte;
+Boite p, p2;
+PShape porte, porte2;
 
 //PShape clavier;
 //PShape table;
@@ -62,8 +62,10 @@ void setup() {
   salle = s.dessine(murs, murs, murs, sol, murs, murs);
   t = new Boite(390,140,1);
   tableau = t.dessine(tab, bois, bois, bois, bois, bois);
-  p = new Boite(1,220,100);
+  p = new Boite(2,220,100);
   porte = p.dessine(door, door, door, door, door, door);
+  p2 = new Boite(100, 220, 2);
+  porte2 = p2.dessine(door, door, door, door, door, door);
   
   //table = dessineTable(0,0,0);
 }
@@ -97,6 +99,11 @@ void draw() {
   translate(-120, 70, 0);
   translate(599, 0, 25);
   shape(porte);
+  translate(-599, 0, -25);
+  translate(5, 0, 0);
+  shape(porte2);
+  translate(0, 0, 998);
+  shape(porte2);
   //shape(clavier);
   ///shape(table);
 }
