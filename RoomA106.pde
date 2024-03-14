@@ -27,6 +27,11 @@ PShape ba1, ba2;
 Boite e;
 PShape ecran;
 
+Boite b4, b5;
+PShape ba3, ba4;
+Boite e2;
+PShape ecran2;
+
 //PShape clavier;
 //PShape table;
 
@@ -43,6 +48,7 @@ PImage plateau;
 PImage plateauT;
 PImage barre;
 PImage screen;
+PImage screen2;
 
 PVector [] lightPos = {
   new PVector(150, -278, 250),
@@ -79,6 +85,7 @@ void setup() {
   plateauT = loadImage("platT.jpg");
   barre = loadImage("barre.png");
   screen = loadImage("speechi.png");
+  screen2 = loadImage("ecran.jpg");
   b = new Boite(1, 175, 800);
   bg = b.dessine(background, background, background, background, background, background);
   f = new Boite(2, 175, 200);
@@ -109,6 +116,12 @@ void setup() {
   ba2 = b3.dessine(barre, barre, barre, barre, barre, barre);
   e = new Boite(170, 115, 5);
   ecran = e.dessine(screen, barre, barre, barre, barre, barre);
+  b4 = new Boite(20, 1, 20);
+  ba3 = b4.dessine(barre, barre, barre, barre, barre, barre);
+  b5 = new Boite(8, 10, 1);
+  ba4 = b5.dessine(barre, barre, barre, barre, barre, barre);
+  e2 = new Boite(60, 40, 2);
+  ecran2 = e2.dessine(screen2, barre, barre, barre, barre, barre);
   //table = dessineTable(0,0,0);
 }
 
@@ -186,6 +199,27 @@ void draw() {
   dessineChaise(530, 760);
   dessineChaise2(450, 900);
   
+  dessineEcran(120, 200);
+  dessineEcran(290, 200);
+  dessineEcran(360, 200);
+  dessineEcran(460, 200);
+  dessineEcran(530, 200);
+  dessineEcran(120, 370);
+  dessineEcran(290, 370);
+  dessineEcran(360, 370);
+  dessineEcran(460, 370);
+  dessineEcran(530, 370);
+  dessineEcran(120, 540);
+  dessineEcran(290, 540);
+  dessineEcran(360, 540);
+  dessineEcran(460, 540);
+  dessineEcran(530, 540);
+  dessineEcran(120, 710);
+  dessineEcran(290, 710);
+  dessineEcran(360, 710);
+  dessineEcran(460, 710);
+  dessineEcran(530, 710);
+  
   dessineTable(190, 93);
   dessineTable(89, 185);
   dessineTable(259, 185);
@@ -249,6 +283,16 @@ void dessineTable(int w, int d) {
   translate(0, -70, -80);
   shape(platT);
   translate(-w, 70, -d);
+}
+
+void dessineEcran(int w, int d) {
+  translate(w+10, -74, d);
+  shape(ba3);
+  translate(6, 0, 3);
+  shape(ba4);
+  translate(-26, -6, 0);
+  shape(ecran2);
+  translate(-w + 10, 80, -d-3);
 }
 
 void speechi() {
