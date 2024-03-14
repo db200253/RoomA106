@@ -19,8 +19,13 @@ PShape porte, porte2;
 
 Boite p3, p4;
 PShape pied, piedT;
-Boite p5, p6;
-PShape plat, platT;
+Boite p5, p6, p7;
+PShape plat, platT, doss;
+
+Boite b2, b3;
+PShape ba1, ba2;
+Boite e;
+PShape ecran;
 
 //PShape clavier;
 //PShape table;
@@ -36,6 +41,8 @@ PImage door;
 PImage feet;
 PImage plateau;
 PImage plateauT;
+PImage barre;
+PImage screen;
 
 PVector [] lightPos = {
   new PVector(150, -278, 250),
@@ -70,6 +77,8 @@ void setup() {
   feet = loadImage("pied.png");
   plateau = loadImage("plat.png");
   plateauT = loadImage("platT.jpg");
+  barre = loadImage("barre.png");
+  screen = loadImage("speechi.png");
   b = new Boite(1, 175, 800);
   bg = b.dessine(background, background, background, background, background, background);
   f = new Boite(2, 175, 200);
@@ -92,7 +101,14 @@ void setup() {
   plat = p5.dessine(plateau, plateau, plateau, plateau, plateau, plateau);
   p6 = new Boite(170, 4, 85);
   platT = p6.dessine(plateauT, plateauT, plateauT, plateauT, plateauT, plateauT);
-  
+  p7 = new Boite(40, 40, 2);
+  doss = p7.dessine(plateau, plateau, plateau, plateau, plateau, plateau);
+  b2 = new Boite(100, 10, 30);
+  ba1 = b2.dessine(barre, barre, barre, barre, barre, barre);
+  b3 = new Boite(24, 100, 5);
+  ba2 = b3.dessine(barre, barre, barre, barre, barre, barre);
+  e = new Boite(170, 115, 5);
+  ecran = e.dessine(screen, barre, barre, barre, barre, barre);
   //table = dessineTable(0,0,0);
 }
 
@@ -143,23 +159,50 @@ void draw() {
   shape(porte2);
   translate(-5, 0, -998);
   
-  dessineChaise(260, 90);
+  dessineChaise2(260, 85);
+  dessineChaise(120, 250);
+  dessineChaise(190, 250);
+  dessineChaise(290, 250);
+  dessineChaise(360, 250);
+  dessineChaise(460, 250);
+  dessineChaise(530, 250);
+  dessineChaise(120, 420);
+  dessineChaise(190, 420);
+  dessineChaise(290, 420);
+  dessineChaise(360, 420);
+  dessineChaise(460, 420);
+  dessineChaise(530, 420);
+  dessineChaise(120, 590);
+  dessineChaise(190, 590);
+  dessineChaise(290, 590);
+  dessineChaise(360, 590);
+  dessineChaise(460, 590);
+  dessineChaise(530, 590);
+  dessineChaise(120, 760);
+  dessineChaise(190, 760);
+  dessineChaise(290, 760);
+  dessineChaise(360, 760);
+  dessineChaise(460, 760);
+  dessineChaise(530, 760);
+  dessineChaise2(450, 900);
   
   dessineTable(190, 93);
-  dessineTable(90, 185);
-  dessineTable(260, 185);
-  dessineTable(430, 185);
-  dessineTable(90, 355);
-  dessineTable(260, 355);
-  dessineTable(430, 355);
-  dessineTable(90, 525);
-  dessineTable(260, 525);
-  dessineTable(430, 525);
-  dessineTable(90, 695);
-  dessineTable(260, 695);
-  dessineTable(430, 695);
-  dessineTable(90, 830);
-  dessineTable(550, 830);
+  dessineTable(89, 185);
+  dessineTable(259, 185);
+  dessineTable(429, 185);
+  dessineTable(89, 355);
+  dessineTable(259, 355);
+  dessineTable(429, 355);
+  dessineTable(89, 525);
+  dessineTable(259, 525);
+  dessineTable(429, 525);
+  dessineTable(89, 695);
+  dessineTable(259, 695);
+  dessineTable(429, 695);
+  dessineTable(110, 914);
+  dessineTable(380, 914);
+  
+  speechi();
 }
 
 void dessineChaise(int w, int d) {
@@ -173,7 +216,25 @@ void dessineChaise(int w, int d) {
   shape(pied);
   translate(0, -45, -38);
   shape(plat);
-  translate(-w, 45, -d+38);
+  translate(0, 0, 38);
+  shape(doss);
+  translate(0, 0, -38);
+  translate(-w, 45, -d);
+}
+
+void dessineChaise2(int w, int d) {
+  translate(w, 0, d);
+  shape(pied);
+  translate(38, 0, 0);
+  shape(pied);
+  translate(0, 0, 38);
+  shape(pied);
+  translate(-38, 0, 0);
+  shape(pied);
+  translate(0, -45, -38);
+  shape(plat);
+  shape(doss);
+  translate(-w, 45, -d);
 }
 
 void dessineTable(int w, int d) {
@@ -188,6 +249,18 @@ void dessineTable(int w, int d) {
   translate(0, -70, -80);
   shape(platT);
   translate(-w, 70, -d);
+}
+
+void speechi() {
+  rotateY(radians(45));
+  translate(-65, 0, 110);
+  shape(ba1);
+  translate(38, 0, 0);
+  shape(ba2);
+  translate(-73, -100, 0);
+  shape(ecran);
+  translate(100, 100, -110);
+  rotateY(-1 * (radians(45)));
 }
 
 /*
