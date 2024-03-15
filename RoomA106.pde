@@ -32,8 +32,10 @@ PShape ba3, ba4;
 Boite e2;
 PShape ecran2;
 
-//PShape clavier;
-//PShape table;
+Boite c;
+PShape clav;
+Boite to;
+PShape tour;
 
 PImage background;
 PImage fenetre;
@@ -49,6 +51,8 @@ PImage plateauT;
 PImage barre;
 PImage screen;
 PImage screen2;
+PImage clavier;
+PImage tower;
 
 PVector [] lightPos = {
   new PVector(150, -278, 250),
@@ -86,6 +90,8 @@ void setup() {
   barre = loadImage("barre.png");
   screen = loadImage("speechi.png");
   screen2 = loadImage("ecran.jpg");
+  clavier = loadImage("clavier.png");
+  tower = loadImage("tour.jpg");
   b = new Boite(1, 175, 800);
   bg = b.dessine(background, background, background, background, background, background);
   f = new Boite(2, 175, 200);
@@ -122,7 +128,10 @@ void setup() {
   ba4 = b5.dessine(barre, barre, barre, barre, barre, barre);
   e2 = new Boite(60, 40, 2);
   ecran2 = e2.dessine(screen2, barre, barre, barre, barre, barre);
-  //table = dessineTable(0,0,0);
+  c = new Boite(50, 2, 10);
+  clav = c.dessine(barre, barre, clavier, barre, barre, barre);
+  to = new Boite(10, 35, 40);
+  tour = to.dessine(tower, barre, barre, barre, barre, barre);
 }
 
 void draw() {
@@ -220,6 +229,8 @@ void draw() {
   dessineEcran(460, 710);
   dessineEcran(530, 710);
   
+  dessineTour(260, 200);
+  
   dessineTable(190, 93);
   dessineTable(89, 185);
   dessineTable(259, 185);
@@ -292,7 +303,15 @@ void dessineEcran(int w, int d) {
   shape(ba4);
   translate(-26, -6, 0);
   shape(ecran2);
-  translate(-w + 10, 80, -d-3);
+  translate(5, 6, 30);
+  shape(clav);
+  translate(-w + 5, 74, -d-33);
+}
+
+void dessineTour(int w, int d) {
+  translate(w, -74, d);
+  shape(tour);
+  translate(-w, 74, -d);
 }
 
 void speechi() {
