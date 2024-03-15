@@ -229,7 +229,15 @@ void draw() {
   dessineEcran(460, 710);
   dessineEcran(530, 710);
   
+  dessineTour(210, 200);
   dessineTour(260, 200);
+  dessineTour(430, 200);
+  dessineTour(260, 370);
+  dessineTour(430, 370);
+  dessineTour(260, 540);
+  dessineTour(430, 540);
+  dessineTour(260, 710);
+  dessineTour(430, 710);
   
   dessineTable(190, 93);
   dessineTable(89, 185);
