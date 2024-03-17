@@ -9,7 +9,10 @@ class Boite {
     this.h = h;
     this.d = d;
   }
-  
+
+  /**
+  * Méthode de dessin de la boîte avec les bonnes textures
+  */
   public PShape dessine(PImage t1, PImage t2, PImage t3, PImage t4, PImage t5, PImage t6) {
   
     PShape b = createShape(GROUP);
@@ -30,7 +33,8 @@ class Boite {
     
     return b;
   }
-  
+
+  // Fond de la boîte
   PShape fond(PImage texture) {
     
     PShape b = createShape();
@@ -56,7 +60,8 @@ class Boite {
     
     return b;
   }
-  
+
+  // Base de la boîte
   PShape base(PImage texture) {
     
     PShape b = createShape();
@@ -84,7 +89,8 @@ class Boite {
     
     return b;
   }
-  
+
+  // Haut de la boîte
   PShape haut(PImage texture) {
     
     PShape b = createShape();
@@ -112,7 +118,8 @@ class Boite {
     
     return b;
   }
-  
+
+  // Bas de la boîte
   PShape bas(PImage texture) {
     
     PShape b = createShape();
@@ -140,7 +147,8 @@ class Boite {
     
     return b;
   }
-  
+
+  // Gauche de la boîte
   PShape gauche(PImage texture) {
     
     PShape b = createShape();
@@ -168,7 +176,8 @@ class Boite {
     
     return b;
   }
-  
+
+  // Droite de la boîte
   PShape droite(PImage texture) {
     
     PShape b = createShape();
