@@ -37,6 +37,7 @@ PShape clav;
 Boite to;
 PShape tour;
 
+// Images pour texture
 PImage background;
 PImage fenetre;
 PImage lumiere;
@@ -54,6 +55,7 @@ PImage screen2;
 PImage clavier;
 PImage tower;
 
+// Positions des lumières
 PVector [] lightPos = {
   new PVector(150, -278, 250),
   new PVector(150, -278, 500),
@@ -62,6 +64,8 @@ PVector [] lightPos = {
   new PVector(450, -278, 500),
   new PVector(450, -278, 750),
 };
+
+//Couleur des lumières
 PVector [] lightColor = {
   new PVector(50, 50, 50),
   new PVector(50, 50, 50),
@@ -71,10 +75,15 @@ PVector [] lightColor = {
   new PVector(50, 50, 50)
 };
 
+/**
+* Creation de la caméra
+* Chargement des images
+* Création des contenants
+* initialisations des boites avec les textures correspondantes
+*/
 void setup() {
   size(1000, 1000, P3D);
   cam = new Camera(new PVector(300,-135,500),0,0);
-  //clavier = dessineClavier();
   textureShader = loadShader("FragmentShader.glsl", "VertexShader.glsl");
   background = loadImage("background.jpg");
   fenetre = loadImage("fenetre.png");
@@ -134,6 +143,11 @@ void setup() {
   tour = to.dessine(tower, barre, barre, barre, barre, barre);
 }
 
+/**
+* Pose des lumières et dessin des composants de la salle
+* Dessin des ecrans, tables et ecran speechi
+* Mise à jour de la caméra
+*/
 void draw() {
   background(0);
   shader(textureShader);
@@ -258,6 +272,9 @@ void draw() {
   speechi();
 }
 
+/**
+* Méthode de dessin de chaise à la position xz nécessaire
+*/
 void dessineChaise(int w, int d) {
   translate(w, 0, d);
   shape(pied);
@@ -275,6 +292,9 @@ void dessineChaise(int w, int d) {
   translate(-w, 45, -d);
 }
 
+/**
+* Méthode de dessin de chaise dans le mauvais sens à la position xz nécessaire
+*/
 void dessineChaise2(int w, int d) {
   translate(w, 0, d);
   shape(pied);
@@ -290,6 +310,9 @@ void dessineChaise2(int w, int d) {
   translate(-w, 45, -d);
 }
 
+/**
+* Méthode de dessin de table à la position xz nécessaire
+*/
 void dessineTable(int w, int d) {
   translate(w, 0, d);
   shape(piedT);
@@ -304,6 +327,9 @@ void dessineTable(int w, int d) {
   translate(-w, 70, -d);
 }
 
+/**
+* Méthode de dessin d'écran à la position xz nécessaire
+*/
 void dessineEcran(int w, int d) {
   translate(w+10, -74, d);
   shape(ba3);
@@ -316,12 +342,18 @@ void dessineEcran(int w, int d) {
   translate(-w + 5, 74, -d-33);
 }
 
+/**
+* Méthode de dessin de tour à la position xz nécessaire
+*/
 void dessineTour(int w, int d) {
   translate(w, -74, d);
   shape(tour);
   translate(-w, 74, -d);
 }
 
+/**
+* Méthode de dessin du grand écran à la position xz nécessaire
+*/
 void speechi() {
   rotateY(radians(45));
   translate(-65, 0, 110);
@@ -334,69 +366,9 @@ void speechi() {
   rotateY(-1 * (radians(45)));
 }
 
-/*
-PShape dessineClavier() {
-   PShape clavier = dessineCube();
-   
-   clavier.scale(43,1,12);
-   
-   return clavier;
-}*/
-/*
-PShape dessineTable(int x, int y, int z) {
-  PShape table = createShape(GROUP);
-  
-  PShape socle = socleTable(x,y,z);
-  PShape pied1 = piedTable(x,y+2,z);
-  PShape pied2 = piedTable(x+159,y+2,z);
-  PShape pied3 = piedTable(x,y+2,z+79);
-  PShape pied4 = piedTable(x+159,y+2,z+79);
-   
-  table.addChild(socle);
-  table.addChild(pied1);
-  table.addChild(pied2);
-  table.addChild(pied3);
-  table.addChild(pied4);
-  
-  return table;
-}*/
-
-/*PShape socleTable(int x, int y, int z) {
-  PShape socle = createShape(GROUP);
-  
-  int w = 160, h = 2, d = 80;
-  
-  for(int i = 0; i < w; ++i) {
-    for(int j = 0; j < h; ++j) {
-      for(int k = 0; k < d; ++k) {
-         
-        PShape cube = dessineCube(x + i, y + j, z + k);
-        socle.addChild(cube);
-      }
-    }
-  }
-  
-  return socle;
-}
-
-PShape piedTable(int x, int y, int z) {
-  PShape pied = createShape(GROUP);
-  
-  int w = 1, h = 73, d = 1;
-  
-  for(int i = 0; i < w; ++i) {
-    for(int j = 0; j < h; ++j) {
-      for(int k = 0; k < d; ++k) {
-         
-        PShape cube = dessineCube(x + i, y + j, z + k);
-        pied.addChild(cube);
-      }
-    }
-  }
-  
-  return pied;
-}*/
-
+/**
+* Gestion des évènements utilisateurs pour la caméra
+*/
 boolean keyZPressed = false;
 boolean keySPressed = false;
 boolean keyQPressed = false;
